@@ -690,52 +690,33 @@ with right_col:
 
             import plotly.graph_objects as go
 
-# Verify dataframe exists and has required columns
-required_cols = ["Brand Name", "Manufacturer Price", "Retail Price"]
+           # Price comparison line chart
+            sample = (
+                final[["Brand Name","Manufacturer Price","Retail Price"]]
+                .dropna().head(30)
+            )
+            fig5 = go.Figure()
+            fig5.add_trace(go.Scatter(
+                x=sample["Brand Name"].apply(lambda x: str(x)[:22]),
+                y=sample["Manufacturer Price"],
+                name="Manufacturer Price", line=dict(color="#3B82F6", width=2),
+                mode="lines+markers", marker=dict(size=4),
+            ))
+            fig5.add_trace(go.Scatter(
+                x=sample["Brand Name"].apply(lambda x: str(x)[:22]),
+                y=sample["Retail Price"],
+                name="Retail Price", line=dict(color="#10B981", width=2),
+                mode="lines+markers", marker=dict(size=4),
+            ))
+            fig5.update_layout(
+                title="Manufacturer vs Retail Price (First 30 Records)",
+                **PLOTLY_DARK,
+                legend=dict(font=dict(color="#8BA3C7"), bgcolor="rgba(0,0,0,0)"),
+                xaxis=dict(tickangle=45, gridcolor="#1E3050"),
+                height=300,
+            )
+            st.plotly_chart(fig5, use_container_width=True)
 
-if 'final' in locals() and not final.empty and all(col in final.columns for col in required_cols):
-
-    sample = (
-        final[required_cols]
-        .dropna()
-        .head(30)
-    )
-
-    if not sample.empty:
-
-        fig5 = go.Figure()
-
-        fig5.add_trace(go.Scatter(
-            x=sample["Brand Name"].apply(lambda x: str(x)[:22]),
-            y=sample["Manufacturer Price"],
-            name="Manufacturer Price",
-            mode="lines+markers",
-            line=dict(width=2),
-            marker=dict(size=4),
-        ))
-
-        fig5.add_trace(go.Scatter(
-            x=sample["Brand Name"].apply(lambda x: str(x)[:22]),
-            y=sample["Retail Price"],
-            name="Retail Price",
-            mode="lines+markers",
-            line=dict(width=2),
-            marker=dict(size=4),
-        ))
-
-        fig5.update_layout(
-            title="Manufacturer vs Retail Price (First 30 Records)",
-            xaxis=dict(tickangle=45),
-            height=300
-        )
-
-        st.plotly_chart(fig5, use_container_width=True)
-
-    else:
-        st.warning("No valid records available for price comparison chart.")
-
-else:
-    st.warning("Required columns missing or dataset empty.")
 
             # ── Validation Report ─────────────────────────────────────────────
             st.markdown('<div class="section-hdr">Validation &amp; Quality Report</div>',
