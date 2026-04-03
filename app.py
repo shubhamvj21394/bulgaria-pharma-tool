@@ -240,9 +240,8 @@ PLOTLY_DARK = dict(
     paper_bgcolor='rgba(0,0,0,0)',
     font=dict(color='#8BA3C7', family='Inter', size=11),
     margin=dict(l=10, r=10, t=30, b=10),
-    xaxis=dict(gridcolor='#1E3050', zerolinecolor='#1E3050'),
-    yaxis=dict(gridcolor='#1E3050', zerolinecolor='#1E3050'),
 )
+GRID = dict(gridcolor='#1E3050', zerolinecolor='#1E3050')
 
 # ── Helper functions ──────────────────────────────────────────────────────────
 def parse_date(v):
@@ -629,6 +628,8 @@ with right_col:
                     color_discrete_sequence=["#3B82F6"],
                 )
                 fig1.update_layout(**PLOTLY_DARK)
+                fig1.update_xaxes(**GRID)
+                fig1.update_yaxes(**GRID)
                 fig1.update_traces(marker_line_width=0)
                 fig1.update_yaxes(categoryorder="total ascending")
                 st.plotly_chart(fig1, use_container_width=True)
@@ -669,6 +670,8 @@ with right_col:
                     color_discrete_sequence=["#F59E0B"],
                 )
                 fig3.update_layout(**PLOTLY_DARK)
+                fig3.update_xaxes(**GRID)
+                fig3.update_yaxes(**GRID)
                 fig3.update_traces(marker_line_width=0)
                 fig3.update_yaxes(categoryorder="total ascending")
                 fig3.update_xaxes(tickprefix="BGN ")
@@ -688,9 +691,7 @@ with right_col:
                 fig4.update_traces(textfont_color="#E8EEFF")
                 st.plotly_chart(fig4, use_container_width=True)
 
-            import plotly.graph_objects as go
-
-           # Price comparison line chart
+            # Price comparison line chart
             sample = (
                 final[["Brand Name","Manufacturer Price","Retail Price"]]
                 .dropna().head(30)
@@ -712,11 +713,11 @@ with right_col:
                 title="Manufacturer vs Retail Price (First 30 Records)",
                 **PLOTLY_DARK,
                 legend=dict(font=dict(color="#8BA3C7"), bgcolor="rgba(0,0,0,0)"),
-                xaxis=dict(tickangle=45, gridcolor="#1E3050"),
                 height=300,
             )
+            fig5.update_xaxes(tickangle=45, **GRID)
+            fig5.update_yaxes(**GRID)
             st.plotly_chart(fig5, use_container_width=True)
-
 
             # ── Validation Report ─────────────────────────────────────────────
             st.markdown('<div class="section-hdr">Validation &amp; Quality Report</div>',
