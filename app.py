@@ -312,10 +312,7 @@ def process_source(raw, *, nat_col, upd_col, par_col, dtype_col,
         par_str = safe_str(par)
         pack_notes = "Not Parallel Import" if par_str else "Parallel Import"
 
-        if dtype:
-            src_type = DTYPE_MAP.get(dtype, dtype)
-        else:
-            src_type = source_label
+        src_type = source_label
 
         try:
             price_id = str(int(float(nat))) if nat is not None and not (isinstance(nat, float) and np.isnan(nat)) else None
