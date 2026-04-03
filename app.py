@@ -489,7 +489,7 @@ with left_col:
         ("Retail Price", "общо с ДДС (Col R)"),
         ("Effective Date", "Дата актуализация → yyyy-mm-dd"),
         ("Pack Notes", "Parallel Import detection"),
-        ("Source Type", "Вид лекарствен продукт (A4) / file label"),
+        ("Source Type", "file label"),
         ("File Date", "Актуализация към → yyyy-mm-dd"),
         ("Country / Currency / VAT", "BULGARIA / BGN / 20"),
         ("Hospital Product", "No  ·  Source Name: NCPR  ·  Factor: 1"),
